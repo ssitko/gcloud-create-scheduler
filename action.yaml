@@ -58,6 +58,12 @@ runs:
             exit 1
         fi
 
+        gcloud scheduler jobs list \
+                --project=$PROJECT_ID \
+                --location=$LOCATION \
+                --filter="name.scope(jobs)=$SCHEDULER_JOB_NAME" \
+                --format="value(name)" 2>/dev/null
+
         RESULT=$(
             gcloud scheduler jobs list \
                 --project=$PROJECT_ID \
