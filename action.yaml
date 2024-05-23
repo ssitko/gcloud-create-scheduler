@@ -62,7 +62,7 @@ runs:
                 --project=$PROJECT_ID \
                 --location=$LOCATION \
                 --filter="name.scope(jobs)=$SCHEDULER_JOB_NAME" \
-                --format="value(name)" 2>/dev/null
+                --format="value(name)"
 
         RESULT=$(
             gcloud scheduler jobs list \
