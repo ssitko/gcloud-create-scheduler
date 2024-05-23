@@ -17,6 +17,7 @@ your-gh-manifest.yaml
     scheduler-job-name: "your-scheduler-name"
     subscription-type: "http" // Also pubsub is supported
     schedule: "*/5 * * * *"
+    location: europe-west-2
     target: "https://test-functions.cloudfunctions.net/cf" // Alternatively, if pubsub scheduler type, use topic name instead
     message-body: "{\"some\": \"data\"}" // This is optional and works only for pubsub scheduler type
 ```

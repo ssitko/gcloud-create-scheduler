@@ -16,6 +16,9 @@ inputs:
   project-id:
     description: "Project ID"
     required: true
+  location:
+    description: "Location of scheduler"
+    required: true
   message-body:
     description: "Message payload body for pubsub subscription"
     required: false
@@ -29,6 +32,7 @@ runs:
         TARGET=${{ inputs.target }}
         MESSAGE_BODY="${{ inputs.message-body }}"
         PROJECT_ID=${{ inputs.project-id }}
+        LOCATION=${{ inputs.location }}
 
         # Check if all required parameters are set & not empty
         if [[ -z "${SUBSCRIPTION_TYPE}" ]]; then
@@ -49,11 +53,15 @@ runs:
         elif [[ -z "${SUBSCRIPTION_TYPE}" ]]; then
             echo ">>> (Infra) | Critical: <subscription-type> parameter is not set! Aborting..."
             exit 1
+        elif [[ -z "${LOCATION}" ]]; then
+            echo ">>> (Infra) | Critical: <location> parameter is not set! Aborting..."
+            exit 1
         fi
 
         RESULT=$(
             gcloud scheduler jobs list \
                 --project=$PROJECT_ID \
+                --location=$LOCATION \
                 --filter="name.scope(jobs)=$SCHEDULER_JOB_NAME" \
                 --format="value(name)" 2>/dev/null
         )
