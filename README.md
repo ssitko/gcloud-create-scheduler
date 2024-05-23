@@ -14,7 +14,7 @@ your-gh-manifest.yaml
   uses: ssitko/gcloud-create-scheduler@v0.1
   with:
     project-id: "your-project-id"
-    scheduler-name: "your-scheduler-name"
+    scheduler-job-name: "your-scheduler-name"
     subscription-type: "http" // Also pubsub is supported
     schedule: "*/5 * * * *"
     target: "https://test-functions.cloudfunctions.net/cf" // Alternatively, if pubsub scheduler type, use topic name instead
