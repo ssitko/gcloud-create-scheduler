@@ -53,7 +53,7 @@ runs:
 
         RESULT=$(
             gcloud scheduler jobs list \
-                --project=allsaints-cloud-dev \
+                --project=$PROJECT_ID \
                 --filter="name.scope(jobs)=$SCHEDULER_JOB_NAME" \
                 --format="value(name)" 2>/dev/null
         )
