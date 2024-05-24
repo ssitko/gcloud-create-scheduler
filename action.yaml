@@ -59,7 +59,7 @@ runs:
         fi
 
         RESULT=$(
-            gcloud scheduler jobs list \
+            gcloud scheduler jobs describe \
                 --project=$PROJECT_ID \
                 --location=$LOCATION \
                 --filter="name.scope(jobs)=$SCHEDULER_JOB_NAME" \
@@ -71,6 +71,7 @@ runs:
                 echo ">>> (Infra) | Creating <$SCHEDULER_JOB_NAME> scheduler of type http for <$TARGET> URI..."
                 gcloud scheduler jobs create http $SCHEDULER_JOB_NAME \
                     --project=$PROJECT_ID \
+                    --location=$LOCATION \
                     --schedule="$SCHEDULE" \
                     --uri="$TARGET" \
                     --http-method=GET
@@ -83,6 +84,7 @@ runs:
                 fi
                 gcloud scheduler jobs create pubsub $SCHEDULER_JOB_NAME \
                     --project=$PROJECT_ID \
+                    --location=$LOCATION \
                     --schedule="$SCHEDULE" \
                     --topic=$TARGET \
                     --message-body="$MESSAGE_BODY"
