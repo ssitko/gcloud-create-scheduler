@@ -19,7 +19,7 @@ your-gh-manifest.yaml
     schedule: "*/5 * * * *"
     location: europe-west2
     target: "https://test-functions.cloudfunctions.net/cf" // Alternatively, if pubsub scheduler type, use topic name instead
-    message-body: "{\"some\": \"data\"}" // This is optional and works only for pubsub scheduler type
+    message-body: "{\"some\": \"data\"}" // This is optional (if using http scheduler), but it's required for pubsub type
 ```
 
 ### Szymon Sitko @ 2024

@@ -58,12 +58,6 @@ runs:
             exit 1
         fi
 
-        gcloud scheduler jobs list \
-                --project=$PROJECT_ID \
-                --location=$LOCATION \
-                --filter="name.scope(jobs)=$SCHEDULER_JOB_NAME" \
-                --format="value(name)"
-
         RESULT=$(
             gcloud scheduler jobs list \
                 --project=$PROJECT_ID \
@@ -82,6 +76,11 @@ runs:
                     --http-method=GET
             elif [[ "${SUBSCRIPTION_TYPE}" == "pubsub" ]]; then
                 echo ">>> (Infra) | Creating <$SCHEDULER_JOB_NAME> scheduler of type pubsub for <$TARGET> topic name..."
+
+                if [[ -z "${MESSAGE_BODY}" ]]; then
+                  echo ">>> (Infra) | Critical: <message-body> parameter is not setm but it's required for pubsub subscription! Aborting..."
+                  exit 1
+                fi
                 gcloud scheduler jobs create pubsub $SCHEDULER_JOB_NAME \
                     --project=$PROJECT_ID \
                     --schedule="$SCHEDULE" \
